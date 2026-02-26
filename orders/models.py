@@ -19,3 +19,14 @@ class OrderStatus(models.Model):
     
     def __str__(self): 
         return self.name
+    
+class Order(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.ForeignKey(OrderStatus,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    def __str__(self):
+        return f"Order {self.id}"
