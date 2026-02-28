@@ -5,11 +5,6 @@ from django.apps import apps
 
 
 def get_today_operating_hours():
-    """
-    Returns today's operating hours as (open_time, close_time).
-
-    If no entry exists for today, returns (None, None).
-    """
 
     # Get current day name (e.g., Monday, Tuesday)
     today_name = datetime.now().strftime('%A')
