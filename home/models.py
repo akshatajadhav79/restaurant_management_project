@@ -16,8 +16,12 @@ class MenuItem(models.Model):
     is_featured = models.BooleanField(default=False)
     
     def __str__(self): 
-<<<<<<< HEAD
         return self.name
+    
+class DailyOperatingHours(models.Model):
+    day_of_week = models.CharField(max_length=20)
+    open_time = models.TimeField()
+    close_time = models.TimeField()
     
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
@@ -25,6 +29,3 @@ class Restaurant(models.Model):
     has_delivery = models.BooleanField(default=False)
     def __str__(self):
         return self.name
-=======
-        return self.name  
->>>>>>> 26ccd3f0f7d1b19510e1f56397a79149fb5e38ff
