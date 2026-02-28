@@ -1,12 +1,9 @@
-import dis
-from email import utils
-
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,generics,permissions
 from django.utils import timezone
-from .models import Coupon
+from .models import Coupon,Order
+from .serializers import OrderSerializer    
 
 # Create your views here.
 
@@ -46,3 +43,12 @@ class CouponValidationView(APIView):
              "discount_percentege":coupon.discount_percentage },
             status = status.HTTP_200_OK
         )
+        
+    
+class OrderHistoryView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by('-created_at')  
+
