@@ -9,4 +9,4 @@ def generate_coupon_code(length=10):
         code = ''.join(secrets.choice(characters) for _ in range(length)) 
         if not Coupon.objects.filter(code = code).exists():
             return code
-         
+          
