@@ -18,7 +18,9 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.name
     
-# class DailyOperatingHours(models.Model):
-#     day_of_week = models.CharField(max_length=20)
-#     open_time = models.TimeField()
-#     close_time = models.TimeField()
+class DailyOperatingHours(models.Model):
+    day_of_week = models.CharField(max_length=20)
+    open_time = models.TimeField()
+    close_time = models.TimeField()
+    def __str__(self): 
+        return self.name
