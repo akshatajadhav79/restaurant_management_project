@@ -14,5 +14,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         field = "__all__"
-        
+
+     
     
+
