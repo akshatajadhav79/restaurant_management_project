@@ -16,4 +16,15 @@ class MenuItem(models.Model):
     is_featured = models.BooleanField(default=False)
     
     def __str__(self): 
-        return self.name     
+        return self.name   
+
+
+class NutritionalInformation(models.Model):
+    meun_item = models.ForeignKey(MenuItem,on_delete = models.CASCADE,related_name = 'nutritional_info')
+    calories = models.IntergerField()
+    protein_gram = models.DecimalField(max_digits=5,decimal_places =2)
+    fat_grams = models.DecimalField(max_digits=5, decimal_places=2)
+    carbohydrate_grams = models.DecimalField(max_digits=5,decimal_places = 2)
+
+    def __str__(self):
+        return f"{self.menu_item.name} - {self.calories} Kcal"
