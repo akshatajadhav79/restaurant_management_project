@@ -2,6 +2,8 @@ import string
 import secrets
 from decimal Decimal,ROUND_HALF_UP 
 # from django.apps import apps
+from .models import Order
+from django.db.models import Sum
 
 def generate_coupon_code(length=10):
     characters = string.ascii_uppercase + string.digits
@@ -17,4 +19,7 @@ def calculate_tip_amount(order_total,tip_precentage):
     tip_amount = order_total * (tip_precentage/Decimal("100"))
     return tip_amount.quantize(Decimal("0.01"),rounding = ROUND_HALF_UP)
           
-
+def get_daily_sales_total(date):
+    orders = Order.objects.filter(created_at__date = date)
+    total = orders.aggregate(total_sum = Sum('total_price'))['total_sum']
+    return total if total is not None else Decimal('0.00')
