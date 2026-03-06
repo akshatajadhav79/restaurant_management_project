@@ -1,6 +1,6 @@
 from .models import MenuCategory,MenuItem
-from .serializers import MenuCategorySerializer,MenuItemSerializer
-from rest_framework.generics import ListAPIView
+from .serializers import MenuCategorySerializer,MenuItemSerializer,IngredientSerializer
+from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
@@ -31,3 +31,11 @@ class MenuItemViewSet(ModelViewSet):
         if search_query:
             queryset = queryset.filter(name__icontains = search_query)
         return queryset
+
+class MenuItemIngredientView(RetrieveAPIView):
+    serializer_class = IngredientSerializer
+    def retrive(self,request,*args,**kwargs):
+        menu_item = MenuItem.objects.get(pk = self.kwargs['pk'])
+        ingredients = menu_item.ingredients.all()
+        serializer = self.get_serializer(ingredients,many =True)
+        return Response(serializer.data)
