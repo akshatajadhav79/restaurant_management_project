@@ -2,7 +2,7 @@ from dataclasses import field
 from pyexpat import model
 
 from rest_framework import serializers
-from .models import MenuCategory,MenuItem
+from .models import MenuCategory,MenuItem,Ingredient
 
 class MenuCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,10 @@ class MenuItemSerializer(serializers.ModelSerializer):
         model = MenuItem
         field = "__all__"
 
-    def validation
+class IngridentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient 
+        fields = ['id','name']
 
       
     
