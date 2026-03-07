@@ -1,6 +1,6 @@
 # home/utils.py
 
-from datetime import datetime
+from datetime import datetime,time
 from django.apps import apps
 import re
 
@@ -24,3 +24,21 @@ def is_valid_Phone_number(phone):
     if re.match(pattern,phone):
         return True
     return False
+
+def is_restaurant_open():
+    now = datetime.now()
+    current_day = now.weekday()
+    current_time = now.time()
+
+    # opening hr
+    weekday_open = time(9,0)
+    weekday_close = time(22,0)
+
+    weekend_open = time(10,0)
+    weekend_close = time(23,0)
+
+    if current_day < 5:
+        return weekday_open <= current_time <= weekday_close
+
+    else:
+        return weekend_open <= current_time <= weekend_close
