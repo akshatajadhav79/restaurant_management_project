@@ -39,3 +39,13 @@ class MenuItemIngredientView(RetrieveAPIView):
         ingredients = menu_item.ingredients.all()
         serializer = self.get_serializer(ingredients,many =True)
         return Response(serializer.data)
+
+class MenuItemByCategory(APIView):
+    def get(self,request):
+        category = request.query_params.get('category')
+        if category:
+            menu_items = MenuItem.objects.fileter(category__category_name__icontains = category)
+        else:
+            menu_items = MenuItem.objects.all()
+        serializer = MenuItemSerializer(menu_items,many = True)
+        return Response(serializer.data)
