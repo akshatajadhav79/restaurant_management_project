@@ -40,7 +40,7 @@ class MenuItemIngredientView(RetrieveAPIView):
         serializer = self.get_serializer(ingredients,many =True)
         return Response(serializer.data)
 
-class MenuItemByCategory(APIView):
+class MenuItemsByCategory(APIView):
     def get(self,request):
         category = request.query_params.get('category')
         if category:
