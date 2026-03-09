@@ -1,5 +1,5 @@
-from .models import MenuCategory,MenuItem
-from .serializers import MenuCategorySerializer,MenuItemSerializer,IngredientSerializer
+from .models import MenuCategory,MenuItem,Table
+from .serializers import MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -49,3 +49,7 @@ class MenuItemsByCategory(APIView):
             menu_items = MenuItem.objects.all()
         serializer = MenuItemSerializer(menu_items,many = True)
         return Response(serializer.data)
+
+class TableDetailView(generics.RetrieveAPIView):
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
