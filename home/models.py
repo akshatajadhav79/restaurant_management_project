@@ -17,7 +17,7 @@ class MenuItem(models.Model):
     description = models.TextField(blank = True)   
     price = models.DecimalField(max_digits=8,decimal_places=2)
     is_featured = models.BooleanField(default=False)
-    ingredients = models.ManyToManyField(Ingredient,related_name = 'menu_items')
+    category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
 
     def __str__(self): 
         return self.name   
