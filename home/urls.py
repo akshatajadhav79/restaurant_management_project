@@ -6,5 +6,5 @@ urlpatterns = [
     path('menu/featured/',FeaturedMenuItemListView.as_view(),name = 'featured-menu'), 
     path('menu-items',MenuItemViewSet.as_view(),name = 'menu-items'),
     path("api/menu-items/<int:pk>/ingredients/",MenuItemIngredientsView.as_view(),name='menu-item-ingredients')
-
+    path('menu-items/',MenuItemsByCAtegory)
 ]
