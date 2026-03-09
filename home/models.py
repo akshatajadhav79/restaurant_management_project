@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Count
 
 # Create your models here.
 class MenuCategory(models.Model):
@@ -12,13 +13,21 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
     
+class MenuItemManager(models.Manager):
+    def get_top_selling_items(self,num_items =5):
+        return(self.get_queryset()
+        .annotate(total_orders = Count('orderitem'))
+        .order_by('-total_orders')[:num_items]
+        )
+
+
 class MenuItem(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank = True)   
     price = models.DecimalField(max_digits=8,decimal_places=2)
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
-
+    objects = MenuItemManager()
     def __str__(self): 
         return self.name   
 
@@ -63,3 +72,4 @@ class Table(models.Model):
     is_available =models.BooleanField(default=True)
     def __str__(self):
         return f"Table {self.table_number}"
+
