@@ -8,4 +8,4 @@ admin.site.register(MenuItem)
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('name', 'has_delivery')
+    list_display = ('name', 'address','phone_number','email','is_active')
