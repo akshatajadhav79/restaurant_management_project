@@ -41,5 +41,12 @@ class Order(models.Model):
     )
     status = models.CharField(max_length = 20,choices = STATUS_CHOICES)
     object = OrderManager()
+
+    def get_unique_item_names(self):
+        unique_items = set()
+        for ord_i in self.orderitem_set.all():
+            unique_items.add(ord_i.menu_item.name)
+        return list(unique_items)
+
     def __str__(self):
         return f"Order {self.id}"
