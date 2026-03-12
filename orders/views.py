@@ -54,7 +54,8 @@ class OrderHistoryView(generics.ListAPIView):
 
 
 class OrderGetView(APIView):
-    def get(self,request):
-        order = Order.objects.get(pk = request.get.data('id'))
-        return Response(order)
+    def get(self,request,id):
+        order = Order.objects.get(id = id)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
 
