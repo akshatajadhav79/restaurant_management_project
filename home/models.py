@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Count
-from orders.models import Ord
+from orders.models import Order
 
 # Create your models here.
 class MenuCategory(models.Model):
@@ -29,7 +29,6 @@ class MenuItem(models.Model):
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
     objects = MenuItemManager()
-    orderitem = 
     def __str__(self): 
         return self.name   
 
