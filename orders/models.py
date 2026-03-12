@@ -41,7 +41,7 @@ class Order(models.Model):
     )
     status = models.CharField(max_length = 20,choices = STATUS_CHOICES)
     tatal_price = models.DecimalField(max_digits=5,decimal_places = 2)
-    object = OrderManager()
+    objects = OrderManager()
 
     def get_unique_item_names(self):
         unique_items = set()
