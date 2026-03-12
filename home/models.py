@@ -3,6 +3,15 @@ from django.db.models import Count
 from orders.models import Order
 
 # Create your models here.
+class Restaurant(models.Model):
+    name = models.CharField(max_length = 100)
+    email = models.EmailField(max_length=100)
+    address = models.TextField()
+    is_active = models.BooleanField(default=True)
+    phone_number = models.IntergerField()
+    def __str__(self):
+        return f"{self.name}"
+
 class MenuCategory(models.Model):
     name = models.CharField(max_length=100,unique=True)
     
