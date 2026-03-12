@@ -52,3 +52,9 @@ class OrderHistoryView(generics.ListAPIView):
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user).order_by('-created_at')  
 
+
+class OrderGetView(APIView):
+    def get(self,request):
+        order = Order.objects.get(pk = request.get.data('id'))
+        return Response(order)
+
