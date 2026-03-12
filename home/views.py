@@ -53,3 +53,7 @@ class MenuItemsByCategory(APIView):
 class TableDetailView(generics.RetrieveAPIView):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
+
+class AvailableTablesAPIView(ListAPIView):
+    queryset = Table.objects.filter(is_avaliable =True)
+    serializer = TableSerializer
