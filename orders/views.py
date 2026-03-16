@@ -59,3 +59,9 @@ class OrderGetView(APIView):
         serializer = OrderSerializer(order)
         return Response(serializer.data)
 
+from utils.email_utils import send_order_confirmation_email
+def create_order(request):
+    order = Order.objects.create(...)
+    send_order_confirmation_email(order_id = order.id,
+    customer_email = order.customer.email,
+    customer_name = order.customer.name)
