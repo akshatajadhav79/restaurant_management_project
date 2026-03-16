@@ -9,6 +9,7 @@ class Restaurant(models.Model):
     address = models.TextField()
     is_active = models.BooleanField(default=True)
     phone_number = models.IntergerField()
+    operating_days = models.CharField(max_length = 50,help_text = "Enter days like Mon,Tue,Wed,Thu,Fri")
     def __str__(self):
         return f"{self.name}"
 
