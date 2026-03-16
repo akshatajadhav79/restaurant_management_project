@@ -84,3 +84,13 @@ class Table(models.Model):
     def __str__(self):
         return f"Table {self.table_number}"
 
+class LoyaltyProgram(models.Model):
+    name = models.CharField(max_length=50,unique = True)
+    points_required  = models.IntergerField(unique =True,help_text="Minimum loyalty points required to reach this tier")
+
+    discount_percentage = models.DecimalField(max_length = 5
+    ,decimal_places = 2,help_text = "Discount percentage for this tier")
+    description = models.TextField()
+    def __str__(self):
+        return self.name
+
