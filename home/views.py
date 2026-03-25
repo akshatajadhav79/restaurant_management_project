@@ -1,8 +1,9 @@
-from .models import MenuCategory,MenuItem,Table
-from .serializers import MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer
+from .models import MenuCategory,MenuItem,Table,ContactFormSubmission
+from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from .utils import send_custome_email
 
 # Create your views here.
 
@@ -57,3 +58,26 @@ class TableDetailView(generics.RetrieveAPIView):
 class AvailableTablesAPIView(ListAPIView):
     queryset = Table.objects.filter(is_avaliable =True)
     serializer = TableSerializer
+
+class ContactFormSubmissionCreateView(generics.CreateAPIView):
+    queryset = ContactFormSubmission.objects.all()
+    serializer_class = ContactFormSubmissionSerializer
+
+    def Create(self,request,*args,**kwargs):
+        serializer = self.get_serializer(data = request.data) 
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "message":"Contact Form Submitted Successfully.",
+                    "data":serializer.data
+                },status = status.HTTP_201_CEATED
+            )
+        return Response({
+            "error":serializer.errors
+        },status = status.HTTP_400_BAD_REQUEST
+        )
+
+def contact_view(request):
+    if request.method == "POST":
+        email_sent = send_custome
