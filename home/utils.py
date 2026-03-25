@@ -3,7 +3,10 @@
 from datetime import datetime,time
 from django.apps import apps
 import re
-
+from django.core,mail import send_mail
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 def get_today_operating_hours():
 
@@ -42,3 +45,21 @@ def is_restaurant_open():
 
     else:
         return weekend_open <= current_time <= weekend_close
+
+def send_custom_email(to_email,subject,message):
+    try:
+        validate _email(to_email)
+        send_mail(
+            subject = subject,message = message,
+            from_email = settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[to_email],
+            fail_silently = False,
+        )
+        return True
+
+    except ValidationError:
+        print("Invalid email address.")
+        return False
+    except Exception as e:
+        print(f"Error sending email:{e}")
+        return False
