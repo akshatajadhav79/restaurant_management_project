@@ -23,3 +23,10 @@ def get_daily_sales_total(date):
     orders = Order.objects.filter(created_at__date = date)
     total = orders.aggregate(total_sum = Sum('total_price'))['total_sum']
     return total if total is not None else Decimal('0.00')
+
+
+def generate_unique_order_id(length=8):
+    Order = apps.get_model('orders','Order')
+    characters = string.ascii_uppercase + string.digits
+    if not Order.objects.filter(order_id = order_id).exists():
+        return order_id
