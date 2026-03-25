@@ -1,5 +1,5 @@
 from django.db import models
-from orders.utils import generate_coupon_code
+from orders.utils import generate_coupon_code,generate_unique_order_id
 
 # Create your models here.
 class Coupon(models.Model):
