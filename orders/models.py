@@ -43,6 +43,11 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=5,decimal_places = 2)
     objects = OrderManager()
 
+    def save(self,*args,**kwargs):
+        if not self.order_id:
+            self.order_id = generate_unique_order_id()
+        super().save(*args,**kwargs)
+
     def get_unique_item_names(self):
         unique_items = set()
         for ord_i in self.orderitem_set.all():
