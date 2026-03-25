@@ -80,4 +80,12 @@ class ContactFormSubmissionCreateView(generics.CreateAPIView):
 
 def contact_view(request):
     if request.method == "POST":
-        email_sent = send_custome
+        email_sent = send_custome_email(
+            to_email = "akshatajadhav7902@gmail.com",
+            subject  = "New Contact from Submission",
+            message = "A user has submitted the contact form."
+        )
+        if email_sent:
+            return Response({"message":"Email sent successfully."})
+        else:
+            return Response({"error":"Failed to send email"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
