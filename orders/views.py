@@ -65,3 +65,25 @@ def create_order(request):
     send_order_confirmation_email(order_id = order.id,
     customer_email = order.customer.email,
     customer_name = order.customer.name)
+
+class UpdateOrderStatusView(APIView):
+    def put(self,request,pk):
+        try:
+            order = Order.objects.get(pk = pk)
+        except Order.DoesNotExist:
+            return Response(
+                {"error":"Order not found"},
+                status = status.HTTP_400_NOT_FOUND
+            )
+        serializer = OrderSerializer(order,data = request.data,partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message":"Order status updated successfully","data":serializer.data},
+                status = status.HTTP_200_OK
+            )
+
+        return Response(
+            serializer.errors,
+            status = status.HTTP_400_BAD_REQUEST
+            )
