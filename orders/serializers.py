@@ -12,3 +12,9 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'created_at', 'total_price','unique_items','user' ]
+
+        def validate_status(self,value):
+            valid_statuses = [choice[0] for choice in Order.STATUS_CHOICES]
+            if value not valid_statuses:
+                raise serializers.ValidationError("Invalid status provided.")
+            return value
