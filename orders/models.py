@@ -24,6 +24,11 @@ class OrderStatus(models.Model):
         return self.name
 
 class OrderManager(models.Manager):
+    def by_status(self,status):
+        return self.filter(status = status)
+    def pending(self):
+        return self.filter(status = 'pending')
+
     def get_active_orders(self):
         return self.filter(status__in =['pending','processing'])
     
