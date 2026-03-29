@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,generics,permissions
 from django.utils import timezone
-from .models import Coupon,Order
-from .serializers import OrderSerializer    
+from .models import Coupon,Order,PaymentMethod
+from .serializers import OrderSerializer,PaymentMethodSerializer    
 
 # Create your views here.
 
@@ -87,3 +87,8 @@ class UpdateOrderStatusView(APIView):
             serializer.errors,
             status = status.HTTP_400_BAD_REQUEST
             )
+
+class PaymentMethodListAPIView(ListAPIView):
+    serializer_class = PaymentMethodSerializer
+    def get_queryset(self):
+        return PaymentMethod.objects.filter(is_active = True)
