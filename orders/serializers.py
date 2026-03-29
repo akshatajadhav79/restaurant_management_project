@@ -18,3 +18,4 @@ class OrderSerializer(serializers.ModelSerializer):
             if value not valid_statuses:
                 raise serializers.ValidationError("Invalid status provided.")
             return value
+
