@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order,OrderItem
+from .models import Order,OrderItem,PaymentMethod
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +19,7 @@ class OrderSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Invalid status provided.")
             return value
 
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentMethod
+        fields = "__all__"
