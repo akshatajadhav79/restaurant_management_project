@@ -94,11 +94,10 @@ class PaymentMethodListAPIView(ListAPIView):
         return PaymentMethod.objects.filter(is_active = True)
 
 
-class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+class CancelOrderView(APIView):
     permission_classes = [IsAuthenticated]
-    @action(detail = True,methods =['delete'],url_path = 'cancel')
-    def cancel_order(self,request,pk = None):
+    
+    def delete(self,request,pk):
         try:
             order= Order.objects.get(pk = pk)
         except Order.DoesNotExist:
