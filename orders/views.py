@@ -92,3 +92,38 @@ class PaymentMethodListAPIView(ListAPIView):
     serializer_class = PaymentMethodSerializer
     def get_queryset(self):
         return PaymentMethod.objects.filter(is_active = True)
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    permission_classes = [IsAuthenticated]
+    @action(detail = True,methods =['delete'],url_path = 'cancel')
+    def cancel_order(self,request,pk = None):
+        try:
+            order= Order.objects.get(pk = pk)
+        except Order.DoesNotExist:
+            return Response({
+                "error":"you cannot cancel this order"
+            },status = status.HTTP_400_NOT_FOUND)
+        if order.user != request.uesr:
+            return Response(
+                {"error":"you cannot cancel this order"},
+                status = status.HTTP_403_FORBIDDEN
+            )
+        if order.status =='completed':
+            return Response(
+                {"error":"completed orders cannot be cancelled"},
+                status = status.HTTP_400_BAD_REQUEST
+            )
+        if order.status=="canceled":
+            return Response(
+                {"error":"Order already cancelled"},
+                status = status.HTTP_400_BAD_REQUEST
+            )
+
+        order.status = 'canceled'
+        order.save()
+        return Response(
+            {"message":"Order cancelled successfully"},
+            status = status.HTTP_200_OK
+        )
