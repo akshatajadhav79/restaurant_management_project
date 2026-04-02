@@ -63,6 +63,7 @@ class Order(models.Model):
         total = Decimal("0.00")
         for item in self.items.all():
             total += item.price * item.quantity
+            discount_price = cal
         return total
 
     def __str__(self):
