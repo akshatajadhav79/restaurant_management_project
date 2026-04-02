@@ -39,6 +39,7 @@ class MenuItem(models.Model):
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
     objects = MenuItemManager()
+    is_daily_special = models.BooleanField(default = False)
     def __str__(self): 
         return self.name   
 
@@ -94,3 +95,12 @@ class LoyaltyProgram(models.Model):
     def __str__(self):
         return self.name
 
+
+class ContactFormSubmission(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length = 255)
+    message = models.TextField()
+    create_at = models.DateTimeField(auto_now_add = True)
+    def __str__(self):
+        return f"{self.name} - {self.email}"
+     
