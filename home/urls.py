@@ -1,7 +1,12 @@
 from django.urls import path
 from .views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'categories',MenuCategoryViewSet,basename = 'categories')
 
 urlpatterns = [
+    path("cat",include(router.urls)),
     path('categories/' ,MenuCategoryListView.as_view(),name = 'menu-category-list') ,
     path('menu/featured/',FeaturedMenuItemListView.as_view(),name = 'featured-menu'), 
     path('menu-items',MenuItemViewSet.as_view(),name = 'menu-items'),
