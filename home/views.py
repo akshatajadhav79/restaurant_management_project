@@ -1,5 +1,5 @@
 from .models import MenuCategory,MenuItem,Table,ContactFormSubmission
-from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer
+from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -89,3 +89,11 @@ def contact_view(request):
             return Response({"message":"Email sent successfully."})
         else:
             return Response({"error":"Failed to send email"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+@api_view(['GET']):
+def daily_specials(request):
+    specials = MenuItem.objects.filter(is_daily_spacial=True)
+    serializer = DailySpecialSerializer(specials,many = True)
+    return Response(serializer.data)
