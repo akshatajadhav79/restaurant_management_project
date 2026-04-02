@@ -11,6 +11,10 @@ class MenuCategoryListView(ListAPIView):
     queryset = MenuCategory.objects.all()
     serializer_class = MenuCategorySerializer
 
+class MenuCategoryViewSet(viewsets.ModelViewSet):
+    queryset = MenuCategory.objects.all()
+    serializer_class = MenuCategorySerializer
+
 class FeaturedMenuItemListView(generics.ListAPIView):
     serializer_class = MenuItemSerializer
     def get_queryset(self):
