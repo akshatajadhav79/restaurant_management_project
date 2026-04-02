@@ -63,3 +63,12 @@ def send_custom_email(to_email,subject,message):
     except Exception as e:
         print(f"Error sending email:{e}")
         return False
+
+def get_distinct_cuisines():
+    """return unique cuisine names available in MenuItem"""
+    cuisines=(
+        MenuItem.objects.
+        values_list('cuisine__name',flat = True)
+        .distinct()
+    )
+    return list(cuisines)
