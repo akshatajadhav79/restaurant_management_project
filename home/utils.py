@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-def get_today_operating_hours():
+def get_today_operating_hours():  
 
     # Get current day name (e.g., Monday, Tuesday)
     today_name = datetime.now().strftime('%A')
