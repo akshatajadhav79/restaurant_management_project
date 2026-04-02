@@ -9,5 +9,6 @@ urlpatterns = [
     path('menu-items/',MenuItemsByCAtegory.as_view(),name = 'menu-items-by-category'),
     path('api/tables/<int:pk>/',TableDetailView.as_view(),name = "table_detail"),
     path("avaliable-tables/",AvalibleTablesAPIView.as_view(),name ="available_tables"),
-    path("contact/",ContactFormSubmissionCreateView.as_view(),name = "contact-form")
+    path("contact/",ContactFormSubmissionCreateView.as_view(),name = "contact-form"),
+    path("daily-specials/",DailySpecialsView.as_view(),name ="daily-specials")
 ]
