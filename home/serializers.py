@@ -5,7 +5,7 @@ from .models import MenuCategory,MenuItem,Ingredient,Table,ContactFormSubmission
 class MenuCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=MenuCategory
-        field=['name']
+        field="__all__"
         
 
 class MenuItemSerializer(serializers.ModelSerializer):
