@@ -126,3 +126,16 @@ class CancelOrderView(APIView):
             {"message":"Order cancelled successfully"},
             status = status.HTTP_200_OK
         )
+
+@api_view(['GET'])
+def get_order_status(request,order_id):
+    try:
+        order = order.objects.get(id=order_id)
+        return Response({
+            'order_id':order.id,
+            "status":order.status
+        },status = status.HTTP_200_OK)
+    except Order.DoesNotExist:
+        return Response({
+            "error":"Order not found"
+        },status = status.HTTP_400_NOT_FOUND)
