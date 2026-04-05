@@ -7,6 +7,6 @@ urlpatterns = [
     path('orders/<int:pk>/update-status/',UpdateOrderStatusView.as_view(),name = 'update-order-status'),
     path('payment-methods/',PaymentMethodListAPIView.as_view(),name = 'payment-methods'),
     path('orders/<int:pk>/cancel/',CancelOrderView.as_view(),name ='cancel-order'),
-    path("order-status/<int:order_id>/",get_order_sta)
+    path("order-status/<int:order_id>/",get_order_status,name = "order-status")
 
 ]
