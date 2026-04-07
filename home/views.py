@@ -1,5 +1,5 @@
-from .models import MenuCategory,MenuItem,Table,ContactFormSubmission
-from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer
+from .models import MenuCategory,MenuItem,Table,ContactFormSubmission,UserReview
+from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer,UserReviewSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -101,3 +101,17 @@ def daily_specials(request):
     specials = MenuItem.objects.filter(is_daily_spacial=True)
     serializer = DailySpecialSerializer(specials,many = True)
     return Response(serializer.data)
+
+class CreateReviewView(generics.CreateAPIView):
+    queryset = UserReview.objects.all()
+    serializer_class = UserReviewSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self,serializer):
+        serializer.save(user = self.request.user)
+
+class ReviewListByMenuItemView(generics.ListAPIView):
+    serializer_class = UserReviewSerializer
+    def get_queryset(self):
+        menu_item_id = self.kwargs.get('menu_item_id')
+        return UserReview.objects.filter(menu_item_id = menu_item_id)
