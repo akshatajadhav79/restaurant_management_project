@@ -15,5 +15,7 @@ urlpatterns = [
     path('api/tables/<int:pk>/',TableDetailView.as_view(),name = "table_detail"),
     path("avaliable-tables/",AvalibleTablesAPIView.as_view(),name ="available_tables"),
     path("contact/",ContactFormSubmissionCreateView.as_view(),name = "contact-form"),
-    path("daily-specials/",DailySpecialsView.as_view(),name ="daily-specials")
+    path("daily-specials/",DailySpecialsView.as_view(),name ="daily-specials"),
+    path('reviews/create',CreateReviewView.as_view(),name = "create-review"),
+    path('reviews/menu-item/<int:menu_item_id>/',ReviewListByMenuItemView.as_view(),name = "")
 ]
