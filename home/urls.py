@@ -17,5 +17,5 @@ urlpatterns = [
     path("contact/",ContactFormSubmissionCreateView.as_view(),name = "contact-form"),
     path("daily-specials/",DailySpecialsView.as_view(),name ="daily-specials"),
     path('reviews/create',CreateReviewView.as_view(),name = "create-review"),
-    path('reviews/menu-item/<int:menu_item_id>/',ReviewListByMenuItemView.as_view(),name = "")
+    path('reviews/menu-item/<int:menu_item_id>/',ReviewListByMenuItemView.as_view(),name = "menu-item-reviews"),
 ]
