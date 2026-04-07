@@ -112,5 +112,9 @@ class UserReview(models.Models):
     review_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.user.username} - {self..menu_item.name}({self.rating})"
+
+    class Meta:
+        unique_together = ('user','menu_item')
+        ordering = ['-review_date']
         
              
