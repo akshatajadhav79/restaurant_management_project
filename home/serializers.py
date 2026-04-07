@@ -36,3 +36,6 @@ class DailySpecialSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ['id','name','description','price']
+
+class UserReviewSerializer(serializers.ModelSerializer):
+    
