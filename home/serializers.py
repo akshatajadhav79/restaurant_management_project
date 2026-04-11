@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import MenuCategory,MenuItem,Ingredient,Table,ContactFormSubmission,UserReview
+from .models import Restaurant,MenuCategory,MenuItem,Ingredient,Table,ContactFormSubmission,UserReview
 
 class MenuCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,3 +52,7 @@ class MenuItemAvailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ['id','is_available']
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = 'Restaurant'
+        fields = "__all__"
