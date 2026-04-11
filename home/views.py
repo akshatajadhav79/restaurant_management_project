@@ -1,5 +1,5 @@
 from .models import MenuCategory,MenuItem,Table,ContactFormSubmission,UserReview
-from .serializers import ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer,UserReviewSerializer
+from .serializers import MenuItemAvailSerializer,ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer,UserReviewSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -115,3 +115,27 @@ class ReviewListByMenuItemView(generics.ListAPIView):
     def get_queryset(self):
         menu_item_id = self.kwargs.get('menu_item_id')
         return UserReview.objects.filter(menu_item_id = menu_item_id)
+
+
+class UpdateMenuItemAvailability(APIView):
+    def path(self,request,pk):
+        try: menu_item = MenuItem.objects.get(pk = pk)
+        except MenuItem.DoesNotExist:
+            return Response(
+                {"error":"Menu Item not found"},
+                status = status.HTTP_404_NOT_FOUND
+            )
+        serializer = MenuItemAvailSerializer(
+            menu_item,data=request.data,partial = True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return {
+                "message":"Availability updated successfully",
+                "data":serializer.data
+            },status = status.HTTP_200_ok)
+
+            return Response(
+                {"error":serializer.errors},
+                status = status.HTTP_400_BAD_REQUEST
+            )
