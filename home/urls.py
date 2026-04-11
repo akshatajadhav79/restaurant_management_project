@@ -18,5 +18,6 @@ urlpatterns = [
     path("daily-specials/",DailySpecialsView.as_view(),name ="daily-specials"),
     path('reviews/create',CreateReviewView.as_view(),name = "create-review"),
     path('reviews/menu-item/<int:menu_item_id>/',ReviewListByMenuItemView.as_view(),name = "menu-item-reviews"),
-    path("menu-items/<int:pk>/avail/",updateMenuItemAvailability.as_view(),name = "update-menu-avail")
+    path("menu-items/<int:pk>/avail/",updateMenuItemAvailability.as_view(),name = "update-menu-avail"),
+    path("restaurant/",RestaurantDetailView.as_view(),name = 'restaurant-detail'),
 ]
