@@ -72,3 +72,18 @@ def update_order_status(order_id,new_status):
             "success":False,
             "message":"an unexpected error occurred"
         }
+
+def calculate_order_total(order_items):
+    if not order_items:
+        return 0.0
+    total = 0.0
+    for item in order_items:
+        try:
+            price = float(item.get('price',0))
+            quantity = int(item.get('quantity',0))
+            if price <0 or quantity <0:
+                continue
+            total +=price * quantity
+            except (valueError , TypeError):
+                continue
+            return total
