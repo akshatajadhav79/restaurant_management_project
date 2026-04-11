@@ -40,6 +40,7 @@ class MenuItem(models.Model):
     category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
     objects = MenuItemManager()
     is_daily_special = models.BooleanField(default = False)
+    is_available = models.BooleanField(default = True)
     def __str__(self): 
         return self.name   
 
