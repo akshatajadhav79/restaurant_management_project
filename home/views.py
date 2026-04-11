@@ -139,3 +139,14 @@ class UpdateMenuItemAvailability(APIView):
                 {"error":serializer.errors},
                 status = status.HTTP_400_BAD_REQUEST
             )
+
+class RestaurantDetailsView(APIView):
+    def get(self,request):
+        restaurant = Restaurant.objects.first()
+        if not restaurant:
+            return Response(
+                    {"error":"Restaurant not found"},
+                    status = status.HTTP_404_NOT_FOUND
+            )
+        serializer = RestaurantSerializer(restaurant)
+        return Response(serializer.data,status = status.HTTP_200_ok)
