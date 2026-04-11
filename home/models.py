@@ -117,4 +117,31 @@ class UserReview(models.Models):
         unique_together = ('user','menu_item')
         ordering = ['-review_date']
         
-             
+class Reservation(models.Model):
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    def __str__(self):
+        return f"{self.start_time} - {self.end_time}"
+    
+    @classmethod
+    def get_available_slots(cls,start_range,end_range):
+        reservations = cls.objects.filter(
+            start_time_lt = end_range,
+            end_time_lt = start_range
+        ).order_by('start_time')
+        available_slots = []
+        current_start = start_range
+        for reservation in reservations:
+            if reservation.start_time > current_start:
+                available_slots.append({
+                    "start":current_start,
+                    "end":reservation.start_time
+                })
+            current_start = max(current_start,reservation.end_time)
+        
+        if current_start <end_range:
+            available_slots.append({
+                "start":current_start,
+                "end":end_range
+            })
+        return available_slots
