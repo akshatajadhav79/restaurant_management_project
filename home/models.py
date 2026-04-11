@@ -145,3 +145,15 @@ class Reservation(models.Model):
                 "end":end_range
             })
         return available_slots
+
+class LoyaltyProgram(models.Model):
+    name = models.CharField(max_length =100,unique=True)
+    points_per_dollar_spent = models.DecimalField(
+        max_digits = 5,decimal_places = 2
+    )
+    description = models.TextField()
+    is_active = models.BooleanField(default = True)
+    create_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now_add =True)
+    def __str__(self):
+        return self.name
