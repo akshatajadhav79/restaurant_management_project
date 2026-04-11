@@ -48,3 +48,7 @@ class UserReviewSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Rating must  be between 1 and 5")
             return value
     
+class MenuItemAvailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuItem
+        fields = ['id','is_available']
