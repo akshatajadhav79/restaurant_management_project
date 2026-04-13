@@ -20,4 +20,5 @@ urlpatterns = [
     path('reviews/menu-item/<int:menu_item_id>/',ReviewListByMenuItemView.as_view(),name = "menu-item-reviews"),
     path("menu-items/<int:pk>/avail/",updateMenuItemAvailability.as_view(),name = "update-menu-avail"),
     path("restaurant/",RestaurantDetailView.as_view(),name = 'restaurant-detail'),
+    path("restaurant/,<int:id>/",RestaurantDetailView1.as_view(),name = 'restaurant-detail-view')
 ]
