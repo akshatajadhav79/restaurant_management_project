@@ -22,5 +22,6 @@ urlpatterns = [
     path("restaurant/",RestaurantDetailView.as_view(),name = 'restaurant-detail'),
     path("restaurant/,<int:id>/",RestaurantDetailView1.as_view(),name = 'restaurant-detail-view'),
     path("menu/search/",MenuItemSearchView.as_view(),name = 'menu-search'),
-    path('restaurant/opening-hours/',OpeningHoursView.as_view(),name = "opening-hours")
+    path('restaurant/opening-hours/',OpeningHoursView.as_view(),name = "opening-hours"),
+    path('reviews/',ReviewListView.as_view(),name ="review-list"),
 ]
