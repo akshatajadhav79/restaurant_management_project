@@ -52,9 +52,21 @@ class MenuItemAvailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = ['id','is_available']
+
 class RestaurantSerializer(serializers.ModelSerializer):
     operating_hours = DailyOperatingHoursSerializer(many=True,read_only = True)
     class Meta:
         model = 'Restaurant'
         fields = "__all__"
 
+class MenuItemSearchSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    class Meta:
+        model = MenuItem
+        fields = ["name","image_url"]
+
+    def get_image_url(self,obj):
+        request = self.context.get('request')
+        if obj.image:
+            return request.build_absolute_uri(obj.image.url)
+        return None
