@@ -4,6 +4,7 @@ from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from .utils import send_custome_email
+from .pagination import ReviewPagination
 
 # Create your views here.
 
@@ -175,3 +176,9 @@ class OpeningHoursView(APIView):
         opening_hours = OpeningHour.objects.all().order_by('id')
         serializer = OpeningHourSerializer(opening_hours,many =True)
         return Response(serializer.data,status = status.HTTP_200_ok)
+
+    
+class ReviewListView(ListAPIView):
+    queryset = Review.objects.all().order_by('-created_at')
+    serializer_class = ReviewSerializer 
+    pagination_class = ReviewPagination
