@@ -53,6 +53,8 @@ class MenuItemAvailSerializer(serializers.ModelSerializer):
         model = MenuItem
         fields = ['id','is_available']
 class RestaurantSerializer(serializers.ModelSerializer):
+    operating_hours = DailyOperatingHoursSerializer(many=True,read_only = True)
     class Meta:
         model = 'Restaurant'
         fields = "__all__"
+
