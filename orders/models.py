@@ -1,5 +1,5 @@
 from django.db import models
-from orders.utils import generate_coupon_code,generate_unique_order_id
+from orders.utils import generate_coupon_code,generate_unique_order_id,calculated_discount
 
 # Create your models here.
 class Coupon(models.Model):
@@ -53,7 +53,7 @@ class Order(models.Model):
             self.order_id = generate_unique_order_id()
         super().save(*args,**kwargs)
 
-    def get_unique_item_names(self):
+    def get_unique_item_names(self):     
         unique_items = set()
         for ord_i in self.orderitem_set.all():
             unique_items.add(ord_i.menu_item.name)
@@ -63,7 +63,8 @@ class Order(models.Model):
         total = Decimal("0.00")
         for item in self.items.all():
             total += item.price * item.quantity
-            discount_price = cal
+            discount_price = calculated_discount(total)
+            total += discount_price
         return total
 
     def __str__(self):
