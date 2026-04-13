@@ -92,3 +92,12 @@ def calculate_discount(original_price,discount_percentage):
         return {"error":"Invalid input.Please provide numeric values"}
     except Exception as e:
         return {"error":f"Something went wrong:{str(e)}"}
+
+def is_valid_email(email:str)->bool:
+    if not email or not isinstance(email,str):
+        return False
+
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if re.match(pattern,email):
+        return True
+    return False
