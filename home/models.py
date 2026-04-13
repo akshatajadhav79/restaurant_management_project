@@ -161,3 +161,15 @@ class LoyaltyProgram(models.Model):
     updated_at = models.DateTimeField(auto_now_add =True)
     def __str__(self):
         return self.name
+
+class DailyOperatingHours(models.Model):
+    restaurant = models.ForeignKey(
+        Restaurant,related_name = "operating_hours",
+        on_delete = models.CASCADE
+    )
+    day = models.CharField(max_lenght = 10)
+    opening_time = models.TimeFiled()
+    closing_time = models.TimeFiled()
+
+    def __str__(self):
+        return f"{self.day} - {self.restaurant.name}"
