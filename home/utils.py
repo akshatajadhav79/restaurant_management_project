@@ -72,3 +72,23 @@ def get_distinct_cuisines():
         .distinct()
     )
     return list(cuisines)
+
+def calculate_discount(original_price,discount_percentage):
+    try:
+        price = float(original_price)
+        discount = float(discount_percentage)
+        if price <0:
+            return {
+                "error":"orginal price cannot be negetive"
+            }
+        if discount <0:
+            return{"error":"Discount percentage cannot be negative"}
+        if discount >100:
+            return {"error":"Diacount percentage cannot exceed 100"}
+        discounted_price = price-(price*discount/100)
+        return round(discounted_price,2)
+
+    except (ValueError,TypeError):
+        return {"error":"Invalid input.Please provide numeric values"}
+    except Exception as e:
+        return {"error":f"Something went wrong:{str(e)}"}
