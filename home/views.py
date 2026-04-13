@@ -1,5 +1,5 @@
-from .models import MenuCategory,MenuItem,Table,ContactFormSubmission,UserReview
-from .serializers import MenuItemAvailSerializer,ContactFormSubmissionSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer,UserReviewSerializer
+from .models import MenuCategory,MenuItem,Table,ContactFormSubmission,UserReview,OpeningHour
+from .serializers import MenuItemAvailSerializer,ContactFormSubmissionSerializer,OpeningHourSerializer,MenuCategorySerializer,MenuItemSerializer,IngredientSerializer,TableSerializer,DailySpecialSerializer,UserReviewSerializer
 from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -169,3 +169,9 @@ class MenuItemSearchView(APIView):
             items,many = True,context = {'request':request}
         )
         return Response(serializer.data,status=status.HTTP_200_ok)
+
+class OpeningHoursView(APIView):
+    def get(self,request):
+        opening_hours = OpeningHour.objects.all().order_by('id')
+        serializer = OpeningHourSerializer(opening_hours,many =True)
+        return Response(serializer.data,status = status.HTTP_200_ok)
