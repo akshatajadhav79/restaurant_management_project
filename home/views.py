@@ -96,7 +96,7 @@ def contact_view(request):
 
 
 
-@api_view(['GET']):
+@api_view(['GET']):  
 def daily_specials(request):
     specials = MenuItem.objects.filter(is_daily_spacial=True)
     serializer = DailySpecialSerializer(specials,many = True)
