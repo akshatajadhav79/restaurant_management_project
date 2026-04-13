@@ -155,3 +155,17 @@ class RestaurantDetailsView1(RetrieveAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     lookup_filed = 'id'
+
+class MenuItemSearchView(APIView):
+    def get(self,request):
+        query = request.GET.get('q','').strip()
+        if not query:
+            return Response(
+                {"error":"Search query parameter 'q' is required"},
+                status = status.HTTP_400_BAD_REQUEST
+            )
+        items = MenuItem.objects.filter(name__icontains = query)
+        serializer = MenuItemSearchSerializer(
+            items,many = True,context = {'request':request}
+        )
+        return Response(serializer.data,status=status.HTTP_200_ok)
