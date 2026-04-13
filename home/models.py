@@ -48,6 +48,15 @@ class MenuItem(models.Model):
     def __str__(self): 
         return self.name   
 
+    def get_final_price(self):
+        try:
+            if self.price <0 :
+                return 0.0
+            if self.discount_percentage < 0 or self.discount_percentage > 100:
+                return round(self.price,2)
+        except:
+            return round(self.price,2)
+
 
 class NutritionalInformation(models.Model):
     meun_item = models.ForeignKey(MenuItem,on_delete = models.CASCADE,related_name = 'nutritional_info')
