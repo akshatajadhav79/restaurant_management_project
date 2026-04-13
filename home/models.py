@@ -38,10 +38,11 @@ class MenuItemManager(models.Manager):
 class MenuItem(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank = True)   
-    price = models.DecimalField(max_digits=8,decimal_places=2)
+    price = models.FloatField()
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(MenuCategory,on_delete = models.CASCADE)
     objects = MenuItemManager()
+    discount_percentage = models.FloatField(default = 0)
     is_daily_special = models.BooleanField(default = False)
     is_available = models.BooleanField(default = True)
     def __str__(self): 
