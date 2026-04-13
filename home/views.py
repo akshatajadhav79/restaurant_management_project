@@ -150,3 +150,8 @@ class RestaurantDetailsView(APIView):
             )
         serializer = RestaurantSerializer(restaurant)
         return Response(serializer.data,status = status.HTTP_200_ok)
+
+class RestaurantDetailsView1(RetrieveAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    lookup_filed = 'id'
