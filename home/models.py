@@ -3,7 +3,7 @@ from django.db.models import Count
 from orders.models import Order
 
 # Create your models here.
-class Restaurant(models.Model):
+class Restaurant(models.Model):     
     name = models.CharField(max_length = 100)
     email = models.EmailField(max_length=100)
     address = models.TextField()
